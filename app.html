@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todoList">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <title>AngularJS Todo List</title>    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        ul li {
+            clear: both;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: normal;
+        }
+
+        .ng-cloak {
+            display: none !important;
+        }
+    </style>
+  </head>
+  <body>
+    <div ng-controller="TodoCtrl as todo" class="container ng-cloak">        
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h1 class="page-header">To Do List</h1>
+
+                <div class="input-group form-group">
+                    <input type="text" class="form-control" placeholder="Enter title here..." 
+                        ng-model="todo.listItem.title"
+                        ng-keydown="$event.keyCode === 13 && todo.addItem()">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="todo.addItem()">
+                            <i class="glyphicon glyphicon-plus"></i>  
+                        </button>
+                    </span>
+                </div><!-- /input-group -->
+
+                <ul class="list-unstyled">
+                    <li ng-repeat="item in todo.items">                
+                        <label>
+                            <input type="checkbox" ng-model="item.checked"> {{ item.title }}
+                        </label>
+                        
+                        <button class="btn btn-danger btn-sm pull-right" ng-click="todo.removeItem($index)">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </button>                
+                    </li>        
+                </ul>
+                <button class="btn btn-info" ng-click="todo.toggleCheckbox()">
+                    <span ng-if="!todo.isCheckedAll">Check</span><span ng-if="todo.isCheckedAll">Uncheck</span> All
+                </button>
+                <button class="btn btn-danger" ng-click="todo.deleteItems()">Delete</button>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
